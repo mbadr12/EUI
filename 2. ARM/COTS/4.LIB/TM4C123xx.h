@@ -100,4 +100,22 @@ typedef struct
 #define GPIOE                           ((GPIO_RegDef_t*) GPIOE_BASE_ADDRESS)
 #define GPIOF                           ((GPIO_RegDef_t*) GPIOF_BASE_ADDRESS)
 
- #endif
+/******************************************** STK Peripheral Definition *********************************************/
+
+#define STK_BASE_ADDRESS					0xE000E010UL
+
+/******************************************** STK Registers Definition **********************************************/
+
+typedef struct
+{
+	volatile u32 CTRL;				/*SysTick Control and Status Register*/
+	volatile u32 LOAD;              /*SysTick Reload Value Register*/
+	volatile u32 CURRENT;           /*SysTick Current Value Register*/
+}STK_RegDef_t;
+
+#define STK                             ((STK_RegDef_t*) STK_BASE_ADDRESS)
+
+#endif	/*TM4C123XX_H*/
+/**********************************************************************************************************************
+ *  END OF FILE: TM4c123xx.h
+ *********************************************************************************************************************/
