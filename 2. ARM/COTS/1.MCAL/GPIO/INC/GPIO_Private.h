@@ -16,13 +16,17 @@
 /**********************************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTION
  *********************************************************************************************************************/
-#define GPIO_PORTNUM    6
+#define GPIO_PORTNUM        6
 
-#define GPIO_UNLOCK     0x4C4F434B
+#define GPIO_UNLOCK         0x4C4F434B
 
-#define GPIO_COMMIT     0xff
+#define GPIO_COMMIT         0xff
 
-#define GPIO_PORT_DATA  255
+#define GPIO_PORT_DATA      255
+
+#define GPIO                GPIO_Arr[GPIO_Config.Port]
+
+#define GPIO_Config         Copy_Config[Local_Counter]
 
 #endif  /* GPIO_PRIVATE_H */
 

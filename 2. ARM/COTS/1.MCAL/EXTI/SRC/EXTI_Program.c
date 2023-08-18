@@ -34,21 +34,21 @@ static void (*EXTI_CallBackFunc[EXTI_PORTS][EXTI_PINS])(void)={{NULL}};
  *********************************************************************************************************************/
 
 /******************************************************************************************************************
- * \Syntax          : ErrorState_t EXTI_Init(EXTI_Config_t* Copy_config,u8 Copy_PinsNum)
- * \Description     : set the required configuration to number of pins
+ * \Syntax          : ErrorState_t EXTI_Init(EXTI_EXTI_Config_t* Copy_EXTI_Config,u8 Copy_PinsNum)
+ * \Description     : set the required EXTI_Configuration to number of pins
  *
  * \Sync\Async      : Synchronous
  * \Reentrancy      : Non Reentrant
- * \Parameters (in) : Copy_config     Configuration structure
- *                    Copy_PinsNum    Number of Pins to be configured
+ * \Parameters (in) : Copy_EXTI_Config     EXTI_Configuration structure
+ *                    Copy_PinsNum    Number of Pins to be EXTI_Configured
  * \Parameters (out): None
  * \Return value:   : ErrorState_t
  *******************************************************************************************************************/
-ErrorState_t EXTI_Init(EXTI_Config_t* Copy_config,u8 Copy_PinsNum)
+ErrorState_t EXTI_Init(EXTI_Config_t* Copy_Config,u8 Copy_PinsNum)
 {
     ErrorState_t Local_ErrorState=E_OK;
     u8 Local_Counter=0;
-    if(Copy_config==NULL)
+    if(Copy_Config==NULL)
     {
         Local_ErrorState=E_NULL_POINTER;
     }
@@ -56,28 +56,28 @@ ErrorState_t EXTI_Init(EXTI_Config_t* Copy_config,u8 Copy_PinsNum)
     {
         for( ;Local_Counter<Copy_PinsNum;Local_Counter++)
         {
-            if((Copy_config[Local_Counter].Port>EXTI_PORTF) || (Copy_config[Local_Counter].Pin>EXTI_PIN7))
+            if((EXTI_Config.Port>EXTI_PORTF) || (EXTI_Config.Pin>EXTI_PIN7))
             {
                 Local_ErrorState=E_WRONG_OPTION;
             }
             else
             {
-                /*configure the sense type*/
-                INSERT_BIT(EXTI_Arr[Copy_config[Local_Counter].Port]->IM,Copy_config[Local_Counter].Pin,Copy_config[Local_Counter].Sence);
-                /*configure the trigger type if edge trigger*/
-                if(Copy_config[Local_Counter].Sence==EXTI_EDGE)
+                /*EXTI_Configure the sense type*/
+                INSERT_BIT(EXTI_GPIO->IM,EXTI_Config.Pin,EXTI_Config.Sence);
+                /*EXTI_Configure the trigger type if edge trigger*/
+                if(EXTI_Config.Sence==EXTI_EDGE)
                 {
-                    if(Copy_config[Local_Counter].TrigTye==EXTI_ONCHANGE)
+                    if(EXTI_Config.TrigTye==EXTI_ONCHANGE)
                     {
-                        SET_BIT(EXTI_Arr[Copy_config[Local_Counter].Port]->IBE,Copy_config[Local_Counter].Pin);
+                        SET_BIT(EXTI_GPIO->IBE,EXTI_Config.Pin);
                     }
                     else
                     {
-                        INSERT_BIT(EXTI_Arr[Copy_config[Local_Counter].Port]->IEV,Copy_config[Local_Counter].Pin,Copy_config[Local_Counter].TrigTye);
+                        INSERT_BIT(EXTI_GPIO->IEV,EXTI_Config.Pin,EXTI_Config.TrigTye);
                     }
                 }
                 /*Enable Interrupt of pin*/
-                SET_BIT(EXTI_Arr[Copy_config[Local_Counter].Port]->IM,Copy_config[Local_Counter].Pin);
+                SET_BIT(EXTI_GPIO->IM,EXTI_Config.Pin);
             }
         }
     }
@@ -141,7 +141,7 @@ void GPIOA_Handler(void)
                 EXTI_CallBackFunc[EXTI_PORTA][Local_PinNum]();
             }
             /*Clear the Interrupt flag*/
-            EXTI_Arr[EXTI_PORTA]->MIS=1<<Local_PinNum;
+            EXTI_Arr[EXTI_PORTA]->ICR=1<<Local_PinNum;
         }
     }
 }
@@ -169,7 +169,7 @@ void GPIOB_Handler(void)
                 EXTI_CallBackFunc[EXTI_PORTB][Local_PinNum]();
             }
             /*Clear the Interrupt flag*/
-            EXTI_Arr[EXTI_PORTB]->MIS=1<<Local_PinNum;
+            EXTI_Arr[EXTI_PORTB]->ICR=1<<Local_PinNum;
         }
     }
 }
@@ -197,7 +197,7 @@ void GPIOC_Handler(void)
                 EXTI_CallBackFunc[EXTI_PORTC][Local_PinNum]();
             }
             /*Clear the Interrupt flag*/
-            EXTI_Arr[EXTI_PORTC]->MIS=1<<Local_PinNum;
+            EXTI_Arr[EXTI_PORTC]->ICR=1<<Local_PinNum;
         }
     }
 }
@@ -225,7 +225,7 @@ void GPIOD_Handler(void)
                 EXTI_CallBackFunc[EXTI_PORTD][Local_PinNum]();
             }
             /*Clear the Interrupt flag*/
-            EXTI_Arr[EXTI_PORTD]->MIS=1<<Local_PinNum;
+            EXTI_Arr[EXTI_PORTD]->ICR=1<<Local_PinNum;
         }
     }
 }
@@ -253,7 +253,7 @@ void GPIOE_Handler(void)
                 EXTI_CallBackFunc[EXTI_PORTE][Local_PinNum]();
             }
             /*Clear the Interrupt flag*/
-            EXTI_Arr[EXTI_PORTE]->MIS=1<<Local_PinNum;
+            EXTI_Arr[EXTI_PORTE]->ICR=1<<Local_PinNum;
         }
     }
 }
@@ -281,7 +281,7 @@ void GPIOF_Handler(void)
                 EXTI_CallBackFunc[EXTI_PORTF][Local_PinNum]();
             }
             /*Clear the Interrupt flag*/
-            EXTI_Arr[EXTI_PORTF]->MIS=1<<Local_PinNum;
+            EXTI_Arr[EXTI_PORTF]->ICR=1<<Local_PinNum;
         }
     }
 }

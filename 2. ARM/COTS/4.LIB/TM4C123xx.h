@@ -80,9 +80,9 @@ typedef struct
 	volatile u32 ICR;                 /*GPIO GPIO Interrupt Clear*/
 	volatile u32 AFSEL;               /*GPIO Alternate Function Select*/
 	u32 Reserved[55];
-	volatile u32 DRxR[3];                /*GPIO x-mA Drive Select*/
+	volatile u32 DRxR[3];             /*GPIO x-mA Drive Select*/
 	volatile u32 ODR;                 /*GPIO Open Drain Select*/
-	volatile u32 PxR[2];                 /*GPIO Pull-Up-Down Select*/
+	volatile u32 PxR[2];              /*GPIO Pull-Up-Down Select*/
 	volatile u32 SLR;                 /*GPIO Slew Rate Control Select*/
 	volatile u32 DEN;                 /*GPIO Digital Enable*/
 	volatile u32 LOCK;                /*GPIO Lock*/
@@ -124,15 +124,15 @@ typedef struct
 typedef struct
 {
 	volatile u32 EN[5];                    /*Interrupt Set Enable*/
-	u32 Reserved[28];                      
+	u32 Reserved[27];                      
 	volatile u32 DIS[5];                   /*Interrupt clear Enable*/
-	u32 Reserved2[28];                     
+	u32 Reserved2[27];                     
 	volatile u32 PEND[5];                  /*Interrupt Set Pending*/
-	u32 Reserved3[28];                     
+	u32 Reserved3[27];                     
 	volatile u32 UNPEND[5];                /*Interrupt clear Pending*/
-	u32 Reserved4[28];                     
+	u32 Reserved4[27];                     
 	volatile u32 ACTIVE[5];                /*Interrupt Active Bit*/
-	u32 Reserved4[60];                     
+	u32 Reserved5[59];
 	volatile u8 PRI[140];                  /*Interrupt Priority*/
 	volatile u32 SWTRIG;				   /*Software Trigger Interrupt*/
 }NVIC_RegDef_t;
@@ -151,8 +151,8 @@ typedef struct
 	volatile u32 INTCTRL;                   /*Interrupt Control and State*/
 	volatile u32 VTABLE;                    /*Vector Table Offset*/
 	volatile u32 APINT;                     /*Application Interrupt and Reset Control*/
-	volatile u32 SYSCTRL                    /*System Control*/
-	volatile u32 CFGCTRL                    /*Configuration and Control*/
+	volatile u32 SYSCTRL;                   /*System Control*/
+	volatile u32 CFGCTRL;                   /*Configuration and Control*/
 	volatile u32 SYSPRI[3];                 /*System Handler Priority*/
 	volatile u32 SYSHNDCTRL;                /*System Handler Control and State*/
 	volatile u32 FAULTSTAT;                 /*Configurable Fault Status*/

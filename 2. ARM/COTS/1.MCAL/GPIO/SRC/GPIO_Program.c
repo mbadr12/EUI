@@ -54,49 +54,49 @@ ErrorState_t GPIO_Init(const GPIO_Config_t* Copy_Config,u8 Copy_PinNum)
 
         for(Local_Counter=0; Local_Counter<Copy_PinNum; Local_Counter++)
         {
-            if((Copy_Config[Local_Counter].Port > GPIO_PORTF)||(Copy_Config[Local_Counter].Pin>GPIO_PIN7))
+            if((GPIO_Config.Port > GPIO_PORTF)||(GPIO_Config.Pin>GPIO_PIN7))
             {
                 Local_ErrorState=E_WRONG_OPTION;
             }
             else
             {
                 /*Make sure that port clock is enabled*/
-                if(GET_BIT(SYSCTL_RCGCGPIO,Copy_Config[Local_Counter].Port)==0)
+                if(GET_BIT(SYSCTL_RCGCGPIO,GPIO_Config.Port)==0)
                 {
-                    SET_BIT(SYSCTL_RCGCGPIO,Copy_Config[Local_Counter].Port);
+                    SET_BIT(SYSCTL_RCGCGPIO,GPIO_Config.Port);
                 }
-                if(GPIO_Arr[Copy_Config[Local_Counter].Port]->LOCK==1)
+                if(GPIO->LOCK==1)
                 {
                     /*Unlock the port*/
-                    GPIO_Arr[Copy_Config[Local_Counter].Port]->LOCK=GPIO_UNLOCK;
+                    GPIO->LOCK=GPIO_UNLOCK;
                     /*Unlock commit for pins*/
-                    GPIO_Arr[Copy_Config[Local_Counter].Port]->CR=GPIO_COMMIT;
+                    GPIO->CR=GPIO_COMMIT;
                 }
                 /*Set the pin Direction*/
-                INSERT_BIT(GPIO_Arr[Copy_Config[Local_Counter].Port]->DIR,Copy_Config[Local_Counter].Pin,Copy_Config[Local_Counter].Dir);
+                INSERT_BIT(GPIO->DIR,GPIO_Config.Pin,GPIO_Config.Dir);
                 /*Set pin Mode*/
-                switch(Copy_Config[Local_Counter].Mode)
+                switch(GPIO_Config.Mode)
                 {
-                case GPIO_PIN_DIGITAL: SET_BIT(GPIO_Arr[Copy_Config[Local_Counter].Port]->DEN,Copy_Config[Local_Counter].Pin); break;
-                case GPIO_PIN_ALTFUNC: SET_BIT(GPIO_Arr[Copy_Config[Local_Counter].Port]->AFSEL,Copy_Config[Local_Counter].Pin);
-                GPIO_Arr[Copy_Config[Local_Counter].Port]->AFSEL&=(~(0b1111)<<(4*Copy_Config[Local_Counter].Pin)); GPIO_Arr[Copy_Config[Local_Counter].Port]->AFSEL|=(Copy_Config[Local_Counter].AltFuncNum)<<(4*Copy_Config[Local_Counter].Pin); break;
-                case GPIO_PIN_ANALOG: SET_BIT(GPIO_Arr[Copy_Config[Local_Counter].Port]->AMSEL,Copy_Config[Local_Counter].Pin); break;
+                case GPIO_PIN_DIGITAL: SET_BIT(GPIO->DEN,GPIO_Config.Pin); break;
+                case GPIO_PIN_ALTFUNC: SET_BIT(GPIO->AFSEL,GPIO_Config.Pin);
+                GPIO->AFSEL&=(~(0b1111)<<(4*GPIO_Config.Pin)); GPIO->AFSEL|=(GPIO_Config.AltFuncNum)<<(4*GPIO_Config.Pin); break;
+                case GPIO_PIN_ANALOG: SET_BIT(GPIO->AMSEL,GPIO_Config.Pin); break;
                 default: Local_ErrorState=E_WRONG_OPTION; break;
                 }
-                if(Copy_Config[Local_Counter].PinState==GPIO_PIN_OPENDRAIN)
+                if(GPIO_Config.PinState==GPIO_PIN_OPENDRAIN)
                 {
                     /*Set Pin State*/
-                    SET_BIT(GPIO_Arr[Copy_Config[Local_Counter].Port]->ODR,Copy_Config[Local_Counter].Pin);
+                    SET_BIT(GPIO->ODR,GPIO_Config.Pin);
                 }
-                if(Copy_Config[Local_Counter].PinPull != GPIO_PIN_FLOATING)
+                if(GPIO_Config.PinPull != GPIO_PIN_FLOATING)
                 {
                     /*Set the pull type*/
-                    SET_BIT(GPIO_Arr[Copy_Config[Local_Counter].Port]->PxR[Copy_Config[Local_Counter].PinPull],Copy_Config[Local_Counter].Pin);
+                    SET_BIT(GPIO->PxR[GPIO_Config.PinPull],GPIO_Config.Pin);
                 }
                 /*set the output Current*/
-                if(Copy_Config[Local_Counter].OutputCurrent<=GPIO_8MA_DRIVE)
+                if(GPIO_Config.OutputCurrent<=GPIO_8MA_DRIVE)
                 {
-                    SET_BIT((GPIO_Arr[Copy_Config[Local_Counter].Port]->DRxR[Copy_Config[Local_Counter].OutputCurrent]),Copy_Config[Local_Counter].Pin);
+                    SET_BIT((GPIO->DRxR[GPIO_Config.OutputCurrent]),GPIO_Config.Pin);
                 }
                 else
                 {
