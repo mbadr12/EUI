@@ -115,6 +115,55 @@ typedef struct
 
 #define STK                             ((STK_RegDef_t*) STK_BASE_ADDRESS)
 
+/******************************************** NVIC Peripheral Definition *********************************************/
+
+#define NVIC_BASE_ADDRESS					0xE000E100UL
+
+/******************************************** NVIC Registers Definition **********************************************/
+
+typedef struct
+{
+	volatile u32 EN[5];                    /*Interrupt Set Enable*/
+	u32 Reserved[28];                      
+	volatile u32 DIS[5];                   /*Interrupt clear Enable*/
+	u32 Reserved2[28];                     
+	volatile u32 PEND[5];                  /*Interrupt Set Pending*/
+	u32 Reserved3[28];                     
+	volatile u32 UNPEND[5];                /*Interrupt clear Pending*/
+	u32 Reserved4[28];                     
+	volatile u32 ACTIVE[5];                /*Interrupt Active Bit*/
+	u32 Reserved4[60];                     
+	volatile u8 PRI[140];                  /*Interrupt Priority*/
+	volatile u32 SWTRIG;				   /*Software Trigger Interrupt*/
+}NVIC_RegDef_t;
+
+#define NVIC						((NVIC_RegDef_t*) NVIC_BASE_ADDRESS)
+
+/******************************************** SCB Peripheral Definition *********************************************/
+
+#define SCB_BASE_ADDRESS					0xE000ED00UL
+
+/******************************************** NVIC Registers Definition **********************************************/
+
+typedef struct
+{
+	volatile u32 CPUID;                     /*CPU ID Base*/
+	volatile u32 INTCTRL;                   /*Interrupt Control and State*/
+	volatile u32 VTABLE;                    /*Vector Table Offset*/
+	volatile u32 APINT;                     /*Application Interrupt and Reset Control*/
+	volatile u32 SYSCTRL                    /*System Control*/
+	volatile u32 CFGCTRL                    /*Configuration and Control*/
+	volatile u32 SYSPRI[3];                 /*System Handler Priority*/
+	volatile u32 SYSHNDCTRL;                /*System Handler Control and State*/
+	volatile u32 FAULTSTAT;                 /*Configurable Fault Status*/
+	volatile u32 HFAULTSTAT;                /*Hard Fault Status*/
+	u32 Reserved[2];                        
+	volatile u32 MMADDR;                    /*Memory Management Fault Address*/
+	volatile u32 FAULTADDR;                 /*Bus Fault Address*/
+}SCB_RegDef_t;
+
+#define SCB							((SCB_RegDef_t*)SCB_BASE_ADDRESS)
+
 #endif	/*TM4C123XX_H*/
 /**********************************************************************************************************************
  *  END OF FILE: TM4c123xx.h
