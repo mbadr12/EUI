@@ -2,52 +2,27 @@
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
  *       Author:  Mahmoud Badr
- *	   	   File:  LCD_Config.h
+ *	   	   File:  KPD_Config.h
  *		  Layer:  HAL
- *       Module:  LCD
+ *       Module:  KPD
  *		Version:  1.00
  *	
  *  Description:  -     
  *  
  *********************************************************************************************************************/
-#ifndef LCD_CONFIG_H
-#define LCD_CONFIG_H
+#ifndef KPD_CONFIG_H
+#define KPD_CONFIG_H
 
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
-/*Choose:
- * GPIO_PORTA
- * GPIO_PORTB
- * GPIO_PORTC
- * GPIO_PORTD
- * GPIO_PORTE
- * GPIO_PORTF
- * */
-#define LCD_DATA1_PORT       GPIO_PORTD
-#define LCD_DATA2_PORT       GPIO_PORTE
+#define KPD_NOT_PRESSED             0xff
 
-#define LCD_CONTROL_PORT    GPIO_PORTA
+#define KPD_ARRAY                    {{'1','2','3','/'},{'4','5','6','*'},{'7','8','9','-'},{'c','0','=','+'}}
 
-/*Choose:
- * GPIO_PIN0
- * GPIO_PIN1
- * GPIO_PIN2
- * GPIO_PIN3
- * GPIO_PIN4
- * GPIO_PIN5
- * GPIO_PIN6
- * GPIO_PIN7
- * */
-#define LCD_RS_PIN              GPIO_PIN2
-
-#define LCD_RW_PIN              GPIO_PIN3
-
-#define LCD_E_PIN               GPIO_PIN4
-
-#endif  /* LCD_CONFIG_H */
+#endif  /* KPD_CONFIG_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: LCD_Config.h
+ *  END OF FILE: KPD_Config.h
  *********************************************************************************************************************/

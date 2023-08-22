@@ -73,6 +73,7 @@ typedef enum
 	E_TIME_OUT,
 	E_NO_RESPOSE,
 	E_CONNECTION_FAILED,
+	E_DIV_BY_ZERO
 }ErrorState_t;
 
 typedef enum
