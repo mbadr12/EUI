@@ -23,28 +23,6 @@
  *********************************************************************************************************************/
 typedef enum
 {
-    LCD_PORTA=0,
-    LCD_PORTB,
-    LCD_PORTC,
-    LCD_PORTD,
-    LCD_PORTE,
-    LCD_PORTF
-}LCD_Port_t;
-
-typedef enum
-{
-    LCD_PIN0=0,
-    LCD_PIN1,
-    LCD_PIN2,
-    LCD_PIN3,
-    LCD_PIN4,
-    LCD_PIN5,
-    LCD_PIN6,
-    LCD_PIN7
-}LCD_Pin_t;
- 
-typedef enum
-{
     LCD_4BIT_MODE=4,
     LCD_8BIT_MODE=8
 }LCD_Mode_t;

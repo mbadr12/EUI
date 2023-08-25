@@ -17,13 +17,17 @@
 /**********************************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTION
  *********************************************************************************************************************/
-#define STK_CLK_SRC     2
+#define STK_CLK_SRC     2UL
 
-#define STK_COUNT       16
+#define STK_COUNT       16UL
 
-#define STK_ENABLE      0
+#define STK_ENABLE      0UL
+
+#define STK_INT_EN       1UL
 
 #define STK_FACTOR      4000UL
+
+#define STK_MAX_VAL     0xffffffUL
 
 #endif  /* STK_PRIVATE_H */
 

@@ -65,12 +65,20 @@ ErrorState_t GPIO_Init(const GPIO_Config_t* Copy_Config,u8 Copy_PinNum)
                 {
                     SET_BIT(SYSCTL_RCGCGPIO,GPIO_Config.Port);
                 }
+                else
+                {
+                    /* For MISRA */
+                }
                 if(GPIO->LOCK==1)
                 {
                     /*Unlock the port*/
                     GPIO->LOCK=GPIO_UNLOCK;
                     /*Unlock commit for pins*/
                     GPIO->CR=GPIO_COMMIT;
+                }
+                else
+                {
+                    /* For MISRA */
                 }
                 /*Set the pin Direction*/
                 INSERT_BIT(GPIO->DIR,GPIO_Config.Pin,GPIO_Config.Dir);
@@ -79,7 +87,7 @@ ErrorState_t GPIO_Init(const GPIO_Config_t* Copy_Config,u8 Copy_PinNum)
                 {
                 case GPIO_PIN_DIGITAL: SET_BIT(GPIO->DEN,GPIO_Config.Pin); break;
                 case GPIO_PIN_ALTFUNC: SET_BIT(GPIO->AFSEL,GPIO_Config.Pin);
-                GPIO->AFSEL&=(~(0b1111)<<(4*GPIO_Config.Pin)); GPIO->AFSEL|=(GPIO_Config.AltFuncNum)<<(4*GPIO_Config.Pin); break;
+                GPIO->PCTL&=(~(0b1111)<<(4*GPIO_Config.Pin)); GPIO->PCTL|=(GPIO_Config.AltFuncNum)<<(4*GPIO_Config.Pin); break;
                 case GPIO_PIN_ANALOG: SET_BIT(GPIO->AMSEL,GPIO_Config.Pin); break;
                 default: Local_ErrorState=E_WRONG_OPTION; break;
                 }
@@ -88,10 +96,18 @@ ErrorState_t GPIO_Init(const GPIO_Config_t* Copy_Config,u8 Copy_PinNum)
                     /*Set Pin State*/
                     SET_BIT(GPIO->ODR,GPIO_Config.Pin);
                 }
+                else
+                {
+                    /* For MISRA */
+                }
                 if(GPIO_Config.PinPull != GPIO_PIN_FLOATING)
                 {
                     /*Set the pull type*/
                     SET_BIT(GPIO->PxR[GPIO_Config.PinPull],GPIO_Config.Pin);
+                }
+                else
+                {
+                    /* For MISRA */
                 }
                 /*set the output Current*/
                 if(GPIO_Config.OutputCurrent<=GPIO_8MA_DRIVE)
@@ -155,7 +171,7 @@ ErrorState_t GPIO_SetPortValue(GPIO_Port_t Copy_Port,Gpio_PortValue_t Copy_PortV
     }
     else
     {
-        GPIO_Arr[Copy_Port]->DATA[GPIO_PORT_DATA]=Copy_PortValue;
+        GPIO_Arr[Copy_Port]->DATA[GPIO_PORT_DATA]=(u32)Copy_PortValue;
     }
     return Local_ErrorState;
 }

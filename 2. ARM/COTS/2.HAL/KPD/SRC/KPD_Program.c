@@ -89,7 +89,7 @@ ErrorState_t KPD_GetPressedKey(KPD_Config_t* Copy_Config,u8* Copy_PressedKey)
 {
     ErrorState_t Local_ErrorState=E_OK;
     u8 Local_KeypadArr[KPD_MAX_ROW][KPD_MAX_COLUMN]=KPD_ARRAY;
-    *Copy_PressedKey=KPD_NOT_PRESSED;
+    *Copy_PressedKey=(u8)KPD_NOT_PRESSED;
     GPIO_PinValue_t Local_State=GPIO_PIN_HIGH;
     u8 Local_RowIndex=0,Local_ColumnIndex=0;
     if((Copy_Config == NULL) || (Copy_PressedKey == NULL))
@@ -116,8 +116,12 @@ ErrorState_t KPD_GetPressedKey(KPD_Config_t* Copy_Config,u8* Copy_PressedKey)
                     }
                     break;
                 }
+                else
+                {
+                    /* For MISRA */
+                }
             }
-            if(*Copy_PressedKey!=KPD_NOT_PRESSED)
+            if(*Copy_PressedKey!=(u8)KPD_NOT_PRESSED)
             {
                 break;
             }

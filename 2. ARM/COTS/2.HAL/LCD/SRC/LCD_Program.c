@@ -29,6 +29,11 @@
 /**********************************************************************************************************************
  *  LOCAL FUNCTIONS
  *********************************************************************************************************************/
+void _delay_ms(u32 Copy_Delay)
+{
+    u32 Local_Counter=0;
+    for( ;Local_Counter<(1000*Copy_Delay);Local_Counter++);
+}
 
 /***********************************************************************************************
  * \Syntax          : void LCD_SendComand(LCD_Config_t* Copy_Config,u8 Copy_Comand)
@@ -55,7 +60,7 @@ static void LCD_SendComand(LCD_Config_t* Copy_Config,u8 Copy_Comand)
     }
     /*Enable Pulse*/
     GPIO_SetPinValue(Copy_Config->ControlPinsPorts[LCD_E], Copy_Config->ControlPins[LCD_E], GPIO_PIN_HIGH);
-    STK_Delyms(2);
+    _delay_ms(2);
     GPIO_SetPinValue(Copy_Config->ControlPinsPorts[LCD_E], Copy_Config->ControlPins[LCD_E], GPIO_PIN_LOW);
 }
 
@@ -91,7 +96,7 @@ static ErrorState_t LCD_SendData(LCD_Config_t* Copy_Config,char Copy_Data)
         }
         /*Enable Pulse*/
         GPIO_SetPinValue(Copy_Config->ControlPinsPorts[LCD_E], Copy_Config->ControlPins[LCD_E], GPIO_PIN_HIGH);
-        STK_Delyms(2);
+        _delay_ms(2);
         GPIO_SetPinValue(Copy_Config->ControlPinsPorts[LCD_E], Copy_Config->ControlPins[LCD_E], GPIO_PIN_LOW);
     }
     return Local_ErrorState;
@@ -154,7 +159,7 @@ ErrorState_t LCD_Init(LCD_Config_t* Copy_Config)
         /*set the cursor*/
         INSERT_VALUE(Local_DisSet,0,2,(Copy_Config->Cursor));
         /*Delay for 40 ms*/
-        STK_Delyms(40);
+        _delay_ms(40);
         if(Local_ErrorState==E_OK)
         {
             switch(Copy_Config->Mode)
@@ -209,7 +214,7 @@ ErrorState_t LCD_SendChar(LCD_Config_t* Copy_Config,char Copy_Char)
     if(Copy_Config->Mode==LCD_4BIT_MODE)
     {
         LCD_SendData(Copy_Config, (Copy_Char>>4));
-        STK_Delyms(5);
+        _delay_ms(5);
     }
     Local_ErrorState=LCD_SendData(Copy_Config, Copy_Char);
     Copy_Config->XPosition[0]++;
