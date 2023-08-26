@@ -2,9 +2,9 @@
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
  *       Author:  Mahmoud Badr
- *	   	   File:  SWC_Program.c
- *		  Layer:  -
- *       Module:  -
+ *	   	   File:  GPTM_Program.c
+ *		  Layer:  MCAL
+ *       Module:  GPTM
  *		Version:  1.00
  *	
  *  Description:  -     
@@ -19,9 +19,9 @@
 #include "Std_Types.h"
 #include "Bit_Math.h"
 
-#include "SWC_Interface.h"
-#include "SWC_Config.h"
-#include "SWC_Private.h"
+#include "GPTM_Interface.h"
+#include "GPTM_Config.h"
+#include "GPTM_Private.h"
 
 /**********************************************************************************************************************
  *  LOCAL DATA 
@@ -60,6 +60,5 @@ Std_ReturnType FunctionName(AnyType parameterName)
 }
 
 /**********************************************************************************************************************
- *  END OF FILE: SWC_Program.c
+ *  END OF FILE: GPTM_Program.c
  *********************************************************************************************************************/
- 
