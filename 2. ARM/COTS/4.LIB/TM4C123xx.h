@@ -40,7 +40,7 @@ typedef struct
     volatile u32 RCC2;                    /* Run-Mode Clock Configuration 2 */
     u32 Reserved4[2];                   
     volatile u32 MOSCCTL;                 /* Main Oscillator Control */
-    u32 Reserved5[49];                   
+    u32 Reserved5[49];
     volatile u32 DSLPCLKCFG;              /* Deep Sleep Clock Configuration */
     u32 Reserved6;                       
     volatile u32 SYSPROP;                 /* System Properties */
@@ -162,7 +162,7 @@ typedef struct
 
 #define SCB_BASE_ADDRESS					0xE000ED00UL
 
-/******************************************** NVIC Registers Definition **********************************************/
+/******************************************** SCB Registers Definition **********************************************/
 
 typedef struct
 {
@@ -203,16 +203,16 @@ typedef struct
 {
 	volatile u32 CFG;						/* GPTM Configuration */
 	volatile u32 TxMR[2];		            /* GPTM Timer A - B Mode */
-	volatile u32 CLT;                       /* GPTM Control */
-	volatile u32 SYNC;                      /* GPTM Synchronize Only in GPTM0 */
-	u32 Reserved[2];                            
+	volatile u32 CTL;                       /* GPTM Control */
+	volatile u32 SYNC;                      /* GPTM Synchronize */
+	u32 Reserved;
 	volatile u32 IMR;                       /* GPTM Interrupt Mask */
 	volatile u32 RIS;                       /* GPTM Raw Interrupt Status */
 	volatile u32 MIS;                       /* GPTM Masked Interrupt Status */
 	volatile u32 ICR;                       /* GPTM Interrupt Clear */
 	volatile u32 xILR[2];                   /* GPTM Timer A - B Interval Load */
-	volatile u32 xMATCHR[2];                /* GPTM Timer A - B Interval Load */
-	volatile u32 TxPR[2];                   /* GPTM Timer A - B Prescale Match */
+	volatile u32 xMATCHR[2];                /* GPTM Timer A - B Interval Match */
+	volatile u32 TxPR[2];                   /* GPTM Timer A - B Prescale */
 	volatile u32 TxPMR[2];                  /* GPTM Timer A - B Prescale Match */
 	volatile u32 TxR[2];                    /* GPTM Timer A - B */
 	volatile u32 TxV[2];                    /* GPTM Timer A - B Value */
@@ -221,19 +221,98 @@ typedef struct
 	volatile u32 TxPV[2];                   /* GPTM Timer A - B Prescale Value */
 }GPTM_RegDef_t;
 
-#define GPTM0				((volatile GPTM_RegDef_t*) GPTM0_BASE_ADDRESS)
-#define GPTM1               ((volatile GPTM_RegDef_t*) GPTM1_BASE_ADDRESS)
-#define GPTM2               ((volatile GPTM_RegDef_t*) GPTM2_BASE_ADDRESS)
-#define GPTM3               ((volatile GPTM_RegDef_t*) GPTM3_BASE_ADDRESS)
-#define GPTM4               ((volatile GPTM_RegDef_t*) GPTM4_BASE_ADDRESS)
-#define GPTM5               ((volatile GPTM_RegDef_t*) GPTM5_BASE_ADDRESS)
+#define GPTM0				((GPTM_RegDef_t*) GPTM0_BASE_ADDRESS)
+#define GPTM1               ((GPTM_RegDef_t*) GPTM1_BASE_ADDRESS)
+#define GPTM2               ((GPTM_RegDef_t*) GPTM2_BASE_ADDRESS)
+#define GPTM3               ((GPTM_RegDef_t*) GPTM3_BASE_ADDRESS)
+#define GPTM4               ((GPTM_RegDef_t*) GPTM4_BASE_ADDRESS)
+#define GPTM5               ((GPTM_RegDef_t*) GPTM5_BASE_ADDRESS)
 
-#define WGPTM0              ((volatile GPTM_RegDef_t*) WGPTM0_BASE_ADDRESS)
-#define WGPTM1              ((volatile GPTM_RegDef_t*) WGPTM1_BASE_ADDRESS)
-#define WGPTM2              ((volatile GPTM_RegDef_t*) WGPTM2_BASE_ADDRESS)
-#define WGPTM3              ((volatile GPTM_RegDef_t*) WGPTM3_BASE_ADDRESS)
-#define WGPTM4              ((volatile GPTM_RegDef_t*) WGPTM4_BASE_ADDRESS)
-#define WGPTM5              ((volatile GPTM_RegDef_t*) WGPTM5_BASE_ADDRESS)
+#define WGPTM0              ((GPTM_RegDef_t*) WGPTM0_BASE_ADDRESS)
+#define WGPTM1              ((GPTM_RegDef_t*) WGPTM1_BASE_ADDRESS)
+#define WGPTM2              ((GPTM_RegDef_t*) WGPTM2_BASE_ADDRESS)
+#define WGPTM3              ((GPTM_RegDef_t*) WGPTM3_BASE_ADDRESS)
+#define WGPTM4              ((GPTM_RegDef_t*) WGPTM4_BASE_ADDRESS)
+#define WGPTM5              ((GPTM_RegDef_t*) WGPTM5_BASE_ADDRESS)
+
+/******************************************** ADC Peripheral Definition *********************************************/
+
+#define SCB_BASE_ADDRESS					0xE000ED00UL
+
+/******************************************** ADC Registers Definition **********************************************/
+typedef struct
+{
+	volatile u32 MUX;
+	volatile u32 CTL;
+	volatile u32 FIFO;
+	volatile u32 FSTAT;
+	volatile u32 OP;
+	volatile u32 DC;
+	u32 Reserved[2];
+}SAMPSEQ_RegDef_t;
+
+typedef struct
+{
+	volatile u32 ACTSS;
+	volatile u32 RIS;
+	volatile u32 IM;
+	volatile u32 ISC;
+	volatile u32 OSTAT;
+	volatile u32 EMUX;
+	volatile u32 USTAT;
+	volatile u32 SSEL;
+	volatile u32 SSPRI;
+	volatile u32 SPC;
+	volatile u32 PSSI;
+	u32 Reserved;
+	volatile u32 SAC;
+	volatile u32 DCISC;
+	volatile u32 CTL;
+	u32 Reserved1;
+	SAMPSEQ_RegDef_t[4];
+}ADC_RegDef_t;
+
+/******************************************** UART Peripheral Definition *********************************************/
+
+#define UART0_BASE_ADDRESS					0x4000C000UL
+#define UART1_BASE_ADDRESS					0x4000D000UL
+#define UART2_BASE_ADDRESS					0x4000E000UL
+#define UART3_BASE_ADDRESS					0x4000F000UL
+#define UART4_BASE_ADDRESS					0x40010000UL
+#define UART5_BASE_ADDRESS					0x40011000UL
+#define UART6_BASE_ADDRESS					0x40012000UL
+#define UART7_BASE_ADDRESS					0x40013000UL
+
+/******************************************** UART Registers Definition **********************************************/
+
+typedef struct
+{
+	volatile u32 DR;
+	volatile u32 RSR;
+	u32 Reserved[4];
+	volatile u32 FR;
+	u32 Reserved1;
+	volatile u32 ILPR;
+	volatile u32 IBRD;
+	volatile u32 FBRD;
+	volatile u32 LCRH;
+	volatile u32 CTL;
+	volatile u32 IFLS;
+	volatile u32 IM;
+	volatile u32 RIS;
+	volatile u32 MIS;
+	volatile u32 ICR;
+	volatile u32 DMACTL;
+}UART_RegDef_t;
+
+#define UART0                              ((UART_RegDef_t*)UART0_BASE_ADDRESS)
+#define UART1                              ((UART_RegDef_t*)UART1_BASE_ADDRESS)
+#define UART2                              ((UART_RegDef_t*)UART2_BASE_ADDRESS)
+#define UART3                              ((UART_RegDef_t*)UART3_BASE_ADDRESS)
+#define UART4                              ((UART_RegDef_t*)UART4_BASE_ADDRESS)
+#define UART5                              ((UART_RegDef_t*)UART5_BASE_ADDRESS)
+#define UART6                              ((UART_RegDef_t*)UART6_BASE_ADDRESS)
+#define UART7                              ((UART_RegDef_t*)UART7_BASE_ADDRESS)
 
 #endif	/*TM4C123XX_H*/
 /**********************************************************************************************************************

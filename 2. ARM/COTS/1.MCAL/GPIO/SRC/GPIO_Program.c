@@ -86,7 +86,7 @@ ErrorState_t GPIO_Init(const GPIO_Config_t* Copy_Config,u8 Copy_PinNum)
                 switch(GPIO_Config.Mode)
                 {
                 case GPIO_PIN_DIGITAL: SET_BIT(GPIO->DEN,GPIO_Config.Pin); break;
-                case GPIO_PIN_ALTFUNC: SET_BIT(GPIO->AFSEL,GPIO_Config.Pin);
+                case GPIO_PIN_ALTFUNC: SET_BIT(GPIO->AFSEL,GPIO_Config.Pin); SET_BIT(GPIO->DEN,GPIO_Config.Pin);
                 GPIO->PCTL&=(~(0b1111)<<(4*GPIO_Config.Pin)); GPIO->PCTL|=(GPIO_Config.AltFuncNum)<<(4*GPIO_Config.Pin); break;
                 case GPIO_PIN_ANALOG: SET_BIT(GPIO->AMSEL,GPIO_Config.Pin); break;
                 default: Local_ErrorState=E_WRONG_OPTION; break;
