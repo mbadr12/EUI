@@ -26,35 +26,54 @@
 /******************************************** SYSCTL Registers Definition    *********************************************/
 typedef struct
 {
-    volatile u32 DID0;
-    volatile u32 DID1;
-    u32 Reserved[11];
-    volatile u32 PBORCTL;
-    u32 Reserved2[8];
-    volatile u32 RIS;
-    volatile u32 IMC;
-    volatile u32 MISC;
-    volatile u32 RESC;
-    volatile u32 RCC;
-    u32 Reserved3[3];
-    volatile u32 GPIOHBCTL;
-    volatile u32 RCC2;
-    u32 Reserved4[3];
-    volatile u32 MOSCCTL;
-    u32 Reserved5[50];
-    volatile u32 DSLPCLKCFG;
-    u32 Reserved6[2];
-    volatile u32 SYSPROP;
-    volatile u32 PIOSCCAL;
-    volatile u32 PIOSCSTAT;
-    u32 Reserved7[3];
-    volatile u32 PLLFREQ0;
-    volatile u32 PLLFREQ1;
-    volatile u32 PLLSTAT;
-    u32 Reserved8[8];
-    volatile u32 SLPPWRCFG;
-    volatile u32 NDSLPPWRCFG;
+    volatile u32 DID[2];                  /* Device Identification */
+    u32 Reserved[10];                     
+    volatile u32 PBORCTL;                /* Brown-Out Reset Control */ 
+    u32 Reserved2[7];                     
+    volatile u32 RIS;                     /* Raw Interrupt Status */
+    volatile u32 IMC;                     /* Interrupt Mask Control */
+    volatile u32 MISC;                    /* Masked Interrupt Status and Clear */
+    volatile u32 RESC;                    /* Reset Cause */
+    volatile u32 RCC;                     /* Run-Mode Clock Configuration */
+    u32 Reserved3[2];                   
+    volatile u32 GPIOHBCTL;               /* GPIO High-Performance Bus Control */
+    volatile u32 RCC2;                    /* Run-Mode Clock Configuration 2 */
+    u32 Reserved4[2];                   
+    volatile u32 MOSCCTL;                 /* Main Oscillator Control */
+    u32 Reserved5[49];
+    volatile u32 DSLPCLKCFG;              /* Deep Sleep Clock Configuration */
+    u32 Reserved6;                       
+    volatile u32 SYSPROP;                 /* System Properties */
+    volatile u32 PIOSCCAL;                /* Precision Internal Oscillator Calibration */
+    volatile u32 PIOSCSTAT;               /* Precision Internal Oscillator Statistics */
+    u32 Reserved7[2];                    
+    volatile u32 PLLFREQx[2];             /* PLL Frequency */
+    volatile u32 PLLSTAT;                 /* PLL Status */
+    u32 Reserved8[7];                     
+    volatile u32 SLPPWRCFG;               /* Sleep Power Configuration */
+    volatile u32 DSLPPWRCFG;              /* Deep-Sleep Power Configuration */
+	u32 Reserved9[9];                    
+    volatile u32 LDOSPCTL;                /* LDO Sleep Power Control */
+    volatile u32 LDOSPCAL;                /* LDO Sleep Power Calibration */
+    volatile u32 LDODPCTL;                /* LDO Deep-Sleep Power Control */
+    volatile u32 LDODPCAL;                /* LDO Deep-Sleep Power Calibration */
+	u32 Reserved10[2];                   
+    volatile u32 SDPMST;                  /* Sleep / Deep-Sleep Power Mode Status */
+	u32 Reserved11[76];                  
+    volatile u32 PP[24];                  /* Peripherals Present */
+    volatile u32 Reserved12[104];        
+    volatile u32 SR[24];                  /* Peripherals Software Reset */
+    volatile u32 Reserved13[40];          
+    volatile u32 RCGC[24];                /* Peripherals RunMode ClockGating Control*/
+    volatile u32 Reserved14[40];         
+    volatile u32 SCGC[24];                /* Peripherals Sleep Mode Clock Gating Control */
+    volatile u32 Reserved15[40];          
+    volatile u32 DCGC[24];                /* Peripherals Deep-Sleep Mode Clock Gating Control */
+    volatile u32 Reserved16[104];         
+    volatile u32 PR[24];                  /* Peripheral Ready */
 }SYSCRL_RegDef_t;
+
+#define SYSCRL					((volatile SYSCRL_RegDef_t*) SYSCTL_BASE_ADDRESS)
 /******************************************** GPIO Peripheral Definition *********************************************/
 
 #define GPIOA_BASE_ADDRESS					0x40004000UL
@@ -69,28 +88,28 @@ typedef struct
 
 typedef struct
 {
-	volatile u32 DATA[256];           /*GPIO Data*/
-	volatile u32 DIR;                 /*GPIO Direction*/
-	volatile u32 IS;                  /*GPIO Interrupt Sense*/
-	volatile u32 IBE;                 /*GPIO Interrupt Both Edges*/
-	volatile u32 IEV;                 /*GPIO Interrupt Event*/
-	volatile u32 IM;                  /*GPIO Interrupt Mask*/
-	volatile u32 RIS;                 /*GPIO Raw Interrupt Status*/
-	volatile u32 MIS;                 /*GPIO Masked Interrupt Status*/
-	volatile u32 ICR;                 /*GPIO GPIO Interrupt Clear*/
-	volatile u32 AFSEL;               /*GPIO Alternate Function Select*/
-	u32 Reserved[55];
-	volatile u32 DRxR[3];             /*GPIO x-mA Drive Select*/
-	volatile u32 ODR;                 /*GPIO Open Drain Select*/
-	volatile u32 PxR[2];              /*GPIO Pull-Up-Down Select*/
-	volatile u32 SLR;                 /*GPIO Slew Rate Control Select*/
-	volatile u32 DEN;                 /*GPIO Digital Enable*/
-	volatile u32 LOCK;                /*GPIO Lock*/
-	volatile u32 CR;                  /*GPIO Commit*/
-	volatile u32 AMSEL;               /*GPIO Analog Mode Select*/
-	volatile u32 PCTL;                /*GPIO Port Control*/
-	volatile u32 ADCCTL;              /*GPIO ADC Control*/
-	volatile u32 DMACTL;              /*GPIO DMA Control*/
+	volatile u32 DATA[256];           /* GPIO Data */
+	volatile u32 DIR;                 /* GPIO Direction */
+	volatile u32 IS;                  /* GPIO Interrupt Sense */
+	volatile u32 IBE;                 /* GPIO Interrupt Both Edges */
+	volatile u32 IEV;                 /* GPIO Interrupt Event */
+	volatile u32 IM;                  /* GPIO Interrupt Mask */
+	volatile u32 RIS;                 /* GPIO Raw Interrupt Status */
+	volatile u32 MIS;                 /* GPIO Masked Interrupt Status */
+	volatile u32 ICR;                 /* GPIO GPIO Interrupt Clear */
+	volatile u32 AFSEL;               /* GPIO Alternate Function Select */
+	u32 Reserved[55];                    
+	volatile u32 DRxR[3];             /* GPIO x-mA Drive Select */
+	volatile u32 ODR;                 /* GPIO Open Drain Select */
+	volatile u32 PxR[2];              /* GPIO Pull-Up-Down Select */
+	volatile u32 SLR;                 /* GPIO Slew Rate Control Select */
+	volatile u32 DEN;                 /* GPIO Digital Enable */
+	volatile u32 LOCK;                /* GPIO Lock */
+	volatile u32 CR;                  /* GPIO Commit */
+	volatile u32 AMSEL;               /* GPIO Analog Mode Select */
+	volatile u32 PCTL;                /* GPIO Port Control */
+	volatile u32 ADCCTL;              /* GPIO ADC Control */
+	volatile u32 DMACTL;              /* GPIO DMA Control */
 }GPIO_RegDef_t;
 
 #define GPIOA							((GPIO_RegDef_t*) GPIOA_BASE_ADDRESS)
@@ -108,9 +127,9 @@ typedef struct
 
 typedef struct
 {
-	volatile u32 CTRL;				/*SysTick Control and Status Register*/
-	volatile u32 LOAD;              /*SysTick Reload Value Register*/
-	volatile u32 CURRENT;           /*SysTick Current Value Register*/
+	volatile u32 CTRL;				/* SysTick Control and Status Register */
+	volatile u32 LOAD;              /* SysTick Reload Value Register */
+	volatile u32 CURRENT;           /* SysTick Current Value Register */
 }STK_RegDef_t;
 
 #define STK                             ((STK_RegDef_t*) STK_BASE_ADDRESS)
@@ -123,18 +142,18 @@ typedef struct
 
 typedef struct
 {
-	volatile u32 EN[5];                    /*Interrupt Set Enable*/
-	u32 Reserved[27];                      
-	volatile u32 DIS[5];                   /*Interrupt clear Enable*/
-	u32 Reserved2[27];                     
-	volatile u32 PEND[5];                  /*Interrupt Set Pending*/
-	u32 Reserved3[27];                     
-	volatile u32 UNPEND[5];                /*Interrupt clear Pending*/
-	u32 Reserved4[27];                     
-	volatile u32 ACTIVE[5];                /*Interrupt Active Bit*/
-	u32 Reserved5[59];
-	volatile u8 PRI[140];                  /*Interrupt Priority*/
-	volatile u32 SWTRIG;				   /*Software Trigger Interrupt*/
+	volatile u32 EN[5];                    /* Interrupt Set Enable */
+	u32 Reserved[27];                         
+	volatile u32 DIS[5];                   /* Interrupt clear Enable */
+	u32 Reserved2[27];                        
+	volatile u32 PEND[5];                  /* Interrupt Set Pending */
+	u32 Reserved3[27];                        
+	volatile u32 UNPEND[5];                /* Interrupt clear Pending */
+	u32 Reserved4[27];                        
+	volatile u32 ACTIVE[5];                /* Interrupt Active Bit */
+	u32 Reserved5[59];                        
+	volatile u8 PRI[140];                  /* Interrupt Priority */
+	volatile u32 SWTRIG;				   /* Software Trigger Interrupt */
 }NVIC_RegDef_t;
 
 #define NVIC						((NVIC_RegDef_t*) NVIC_BASE_ADDRESS)
@@ -143,26 +162,157 @@ typedef struct
 
 #define SCB_BASE_ADDRESS					0xE000ED00UL
 
-/******************************************** NVIC Registers Definition **********************************************/
+/******************************************** SCB Registers Definition **********************************************/
 
 typedef struct
 {
-	volatile u32 CPUID;                     /*CPU ID Base*/
-	volatile u32 INTCTRL;                   /*Interrupt Control and State*/
-	volatile u32 VTABLE;                    /*Vector Table Offset*/
-	volatile u32 APINT;                     /*Application Interrupt and Reset Control*/
-	volatile u32 SYSCTRL;                   /*System Control*/
-	volatile u32 CFGCTRL;                   /*Configuration and Control*/
-	volatile u32 SYSPRI[3];                 /*System Handler Priority*/
-	volatile u32 SYSHNDCTRL;                /*System Handler Control and State*/
-	volatile u32 FAULTSTAT;                 /*Configurable Fault Status*/
-	volatile u32 HFAULTSTAT;                /*Hard Fault Status*/
-	u32 Reserved[2];                        
-	volatile u32 MMADDR;                    /*Memory Management Fault Address*/
-	volatile u32 FAULTADDR;                 /*Bus Fault Address*/
+	volatile u32 CPUID;                     /* CPU ID Base */
+	volatile u32 INTCTRL;                   /* Interrupt Control and State */
+	volatile u32 VTABLE;                    /* Vector Table Offset */
+	volatile u32 APINT;                     /* Application Interrupt and Reset Control */
+	volatile u32 SYSCTRL;                   /* System Control */
+	volatile u32 CFGCTRL;                   /* Configuration and Control */
+	volatile u32 SYSPRI[3];                 /* System Handler Priority */
+	volatile u32 SYSHNDCTRL;                /* System Handler Control and State */
+	volatile u32 FAULTSTAT;                 /* Configurable Fault Status */
+	volatile u32 HFAULTSTAT;                /* Hard Fault Status */
+	u32 Reserved[2];                           
+	volatile u32 MMADDR;                    /* Memory Management Fault Address */
+	volatile u32 FAULTADDR;                 /* Bus Fault Address */
 }SCB_RegDef_t;
 
 #define SCB							((SCB_RegDef_t*)SCB_BASE_ADDRESS)
+
+/******************************************** GPTM Peripheral Definition *********************************************/
+
+#define GPTM0_BASE_ADDRESS					0x40030000UL
+#define GPTM1_BASE_ADDRESS					0x40031000UL
+#define GPTM2_BASE_ADDRESS					0x40032000UL
+#define GPTM3_BASE_ADDRESS					0x40033000UL
+#define GPTM4_BASE_ADDRESS					0x40034000UL
+#define GPTM5_BASE_ADDRESS					0x40035000UL
+#define WGPTM0_BASE_ADDRESS					0x40036000UL
+#define WGPTM1_BASE_ADDRESS					0x40037000UL
+#define WGPTM2_BASE_ADDRESS					0x4003c000UL
+#define WGPTM3_BASE_ADDRESS					0x4003d000UL
+#define WGPTM4_BASE_ADDRESS					0x4003E000UL
+#define WGPTM5_BASE_ADDRESS					0x4003F000UL
+
+/******************************************** GPTM Registers Definition **********************************************/
+typedef struct
+{
+	volatile u32 CFG;						/* GPTM Configuration */
+	volatile u32 TxMR[2];		            /* GPTM Timer A - B Mode */
+	volatile u32 CTL;                       /* GPTM Control */
+	volatile u32 SYNC;                      /* GPTM Synchronize */
+	u32 Reserved;
+	volatile u32 IMR;                       /* GPTM Interrupt Mask */
+	volatile u32 RIS;                       /* GPTM Raw Interrupt Status */
+	volatile u32 MIS;                       /* GPTM Masked Interrupt Status */
+	volatile u32 ICR;                       /* GPTM Interrupt Clear */
+	volatile u32 xILR[2];                   /* GPTM Timer A - B Interval Load */
+	volatile u32 xMATCHR[2];                /* GPTM Timer A - B Interval Match */
+	volatile u32 TxPR[2];                   /* GPTM Timer A - B Prescale */
+	volatile u32 TxPMR[2];                  /* GPTM Timer A - B Prescale Match */
+	volatile u32 TxR[2];                    /* GPTM Timer A - B */
+	volatile u32 TxV[2];                    /* GPTM Timer A - B Value */
+	volatile u32 RTCPD;                     /* GPTM RTC Predivide */
+	volatile u32 TxPS[2];                   /* GPTM Timer A - B Prescale Snapshot */
+	volatile u32 TxPV[2];                   /* GPTM Timer A - B Prescale Value */
+}GPTM_RegDef_t;
+
+#define GPTM0				((GPTM_RegDef_t*) GPTM0_BASE_ADDRESS)
+#define GPTM1               ((GPTM_RegDef_t*) GPTM1_BASE_ADDRESS)
+#define GPTM2               ((GPTM_RegDef_t*) GPTM2_BASE_ADDRESS)
+#define GPTM3               ((GPTM_RegDef_t*) GPTM3_BASE_ADDRESS)
+#define GPTM4               ((GPTM_RegDef_t*) GPTM4_BASE_ADDRESS)
+#define GPTM5               ((GPTM_RegDef_t*) GPTM5_BASE_ADDRESS)
+
+#define WGPTM0              ((GPTM_RegDef_t*) WGPTM0_BASE_ADDRESS)
+#define WGPTM1              ((GPTM_RegDef_t*) WGPTM1_BASE_ADDRESS)
+#define WGPTM2              ((GPTM_RegDef_t*) WGPTM2_BASE_ADDRESS)
+#define WGPTM3              ((GPTM_RegDef_t*) WGPTM3_BASE_ADDRESS)
+#define WGPTM4              ((GPTM_RegDef_t*) WGPTM4_BASE_ADDRESS)
+#define WGPTM5              ((GPTM_RegDef_t*) WGPTM5_BASE_ADDRESS)
+
+/******************************************** ADC Peripheral Definition *********************************************/
+
+#define SCB_BASE_ADDRESS					0xE000ED00UL
+
+/******************************************** ADC Registers Definition **********************************************/
+typedef struct
+{
+	volatile u32 MUX;
+	volatile u32 CTL;
+	volatile u32 FIFO;
+	volatile u32 FSTAT;
+	volatile u32 OP;
+	volatile u32 DC;
+	u32 Reserved[2];
+}SAMPSEQ_RegDef_t;
+
+typedef struct
+{
+	volatile u32 ACTSS;
+	volatile u32 RIS;
+	volatile u32 IM;
+	volatile u32 ISC;
+	volatile u32 OSTAT;
+	volatile u32 EMUX;
+	volatile u32 USTAT;
+	volatile u32 SSEL;
+	volatile u32 SSPRI;
+	volatile u32 SPC;
+	volatile u32 PSSI;
+	u32 Reserved;
+	volatile u32 SAC;
+	volatile u32 DCISC;
+	volatile u32 CTL;
+	u32 Reserved1;
+	SAMPSEQ_RegDef_t[4];
+}ADC_RegDef_t;
+
+/******************************************** UART Peripheral Definition *********************************************/
+
+#define UART0_BASE_ADDRESS					0x4000C000UL
+#define UART1_BASE_ADDRESS					0x4000D000UL
+#define UART2_BASE_ADDRESS					0x4000E000UL
+#define UART3_BASE_ADDRESS					0x4000F000UL
+#define UART4_BASE_ADDRESS					0x40010000UL
+#define UART5_BASE_ADDRESS					0x40011000UL
+#define UART6_BASE_ADDRESS					0x40012000UL
+#define UART7_BASE_ADDRESS					0x40013000UL
+
+/******************************************** UART Registers Definition **********************************************/
+
+typedef struct
+{
+	volatile u32 DR;
+	volatile u32 RSR;
+	u32 Reserved[4];
+	volatile u32 FR;
+	u32 Reserved1;
+	volatile u32 ILPR;
+	volatile u32 IBRD;
+	volatile u32 FBRD;
+	volatile u32 LCRH;
+	volatile u32 CTL;
+	volatile u32 IFLS;
+	volatile u32 IM;
+	volatile u32 RIS;
+	volatile u32 MIS;
+	volatile u32 ICR;
+	volatile u32 DMACTL;
+}UART_RegDef_t;
+
+#define UART0                              ((UART_RegDef_t*)UART0_BASE_ADDRESS)
+#define UART1                              ((UART_RegDef_t*)UART1_BASE_ADDRESS)
+#define UART2                              ((UART_RegDef_t*)UART2_BASE_ADDRESS)
+#define UART3                              ((UART_RegDef_t*)UART3_BASE_ADDRESS)
+#define UART4                              ((UART_RegDef_t*)UART4_BASE_ADDRESS)
+#define UART5                              ((UART_RegDef_t*)UART5_BASE_ADDRESS)
+#define UART6                              ((UART_RegDef_t*)UART6_BASE_ADDRESS)
+#define UART7                              ((UART_RegDef_t*)UART7_BASE_ADDRESS)
 
 #endif	/*TM4C123XX_H*/
 /**********************************************************************************************************************
